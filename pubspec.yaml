@@ -1,7 +1,8 @@
 name: flutter_weather_forecast
-description: A new Flutter package project.
-version: 0.0.1
-homepage:
+description: A weather forecast widget for Turkey.
+version: 1.0.0
+homepage: https://github.com/coskuncay/flutter_weather_forecast
+repository: https://github.com/coskuncay/flutter_weather_forecast
 
 environment:
   sdk: ">=2.16.0 <3.0.0"

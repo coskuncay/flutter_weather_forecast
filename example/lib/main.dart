@@ -7,8 +7,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,19 +40,19 @@ class _MyHomePageState extends State<MyHomePage> {
           children: const [
             WeatherForecast(),
             WeatherForecast(
-              stationNo: '93201',
+              stationNo: '32',
             ),
             WeatherForecast(
-              stationNo: '93401',
+              stationNo: '36',
             ),
             WeatherForecast(
-              stationNo: '93601',
+              stationNo: '76',
             ),
             WeatherForecast(
-              stationNo: '90101',
+              stationNo: '11',
             ),
             WeatherForecast(
-              stationNo: '94301',
+              stationNo: '43',
             ),
           ],
         ),
