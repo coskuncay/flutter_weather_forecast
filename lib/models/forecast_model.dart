@@ -37,11 +37,11 @@ class ForecastModel {
   int ruzgarYonGun3;
   int ruzgarYonGun4;
   int ruzgarYonGun5;
-  DateTime tarihGun1;
-  DateTime tarihGun2;
-  DateTime tarihGun3;
-  DateTime tarihGun4;
-  DateTime tarihGun5;
+  String tarihGun1;
+  String tarihGun2;
+  String tarihGun3;
+  String tarihGun4;
+  String tarihGun5;
   ForecastModel({
     required this.enDusukGun1,
     required this.enDusukGun2,
@@ -127,11 +127,11 @@ class ForecastModel {
       'ruzgarYonGun3': ruzgarYonGun3,
       'ruzgarYonGun4': ruzgarYonGun4,
       'ruzgarYonGun5': ruzgarYonGun5,
-      'tarihGun1': tarihGun1.millisecondsSinceEpoch,
-      'tarihGun2': tarihGun2.millisecondsSinceEpoch,
-      'tarihGun3': tarihGun3.millisecondsSinceEpoch,
-      'tarihGun4': tarihGun4.millisecondsSinceEpoch,
-      'tarihGun5': tarihGun5.millisecondsSinceEpoch,
+      'tarihGun1': tarihGun1,
+      'tarihGun2': tarihGun2,
+      'tarihGun3': tarihGun3,
+      'tarihGun4': tarihGun4,
+      'tarihGun5': tarihGun5,
     };
   }
 
@@ -173,11 +173,11 @@ class ForecastModel {
       ruzgarYonGun3: map['ruzgarYonGun3']?.toInt() ?? 0,
       ruzgarYonGun4: map['ruzgarYonGun4']?.toInt() ?? 0,
       ruzgarYonGun5: map['ruzgarYonGun5']?.toInt() ?? 0,
-      tarihGun1: DateTime.fromMillisecondsSinceEpoch(map['tarihGun1']),
-      tarihGun2: DateTime.fromMillisecondsSinceEpoch(map['tarihGun2']),
-      tarihGun3: DateTime.fromMillisecondsSinceEpoch(map['tarihGun3']),
-      tarihGun4: DateTime.fromMillisecondsSinceEpoch(map['tarihGun4']),
-      tarihGun5: DateTime.fromMillisecondsSinceEpoch(map['tarihGun5']),
+      tarihGun1: map['tarihGun1'] ?? '',
+      tarihGun2: map['tarihGun2'] ?? '',
+      tarihGun3: map['tarihGun3'] ?? '',
+      tarihGun4: map['tarihGun4'] ?? '',
+      tarihGun5: map['tarihGun5'] ?? '',
     );
   }
 

@@ -25,7 +25,34 @@ flutter:
 
   # To add assets to your package, add an assets section, like this:
   assets: 
-    - packages/flutter_weather_forecast/assets/images/y.png 
+    - packages/flutter_weather_forecast/assets/images/a.png
+    - packages/flutter_weather_forecast/assets/images/ab.png
+    - packages/flutter_weather_forecast/assets/images/dmn.png
+    - packages/flutter_weather_forecast/assets/images/dy.png
+    - packages/flutter_weather_forecast/assets/images/gkr.png
+    - packages/flutter_weather_forecast/assets/images/gsy.png
+    - packages/flutter_weather_forecast/assets/images/hky.png
+    - packages/flutter_weather_forecast/assets/images/k.png
+    - packages/flutter_weather_forecast/assets/images/kf.png
+    - packages/flutter_weather_forecast/assets/images/kgy.png
+    - packages/flutter_weather_forecast/assets/images/kkr.png
+    - packages/flutter_weather_forecast/assets/images/ksy.png
+    - packages/flutter_weather_forecast/assets/images/ky.png
+    - packages/flutter_weather_forecast/assets/images/msy.png
+    - packages/flutter_weather_forecast/assets/images/pb.png
+    - packages/flutter_weather_forecast/assets/images/pus.png
+    - packages/flutter_weather_forecast/assets/images/sck.png
+    - packages/flutter_weather_forecast/assets/images/sis.png
+    - packages/flutter_weather_forecast/assets/images/sy.png
+    - packages/flutter_weather_forecast/assets/images/y.png
+    - packages/flutter_weather_forecast/assets/images/yky.png
+    - packages/flutter_weather_forecast/assets/images/r.png
+    - packages/flutter_weather_forecast/assets/images/kky.png
+    - packages/flutter_weather_forecast/assets/images/hy.png
+    - packages/flutter_weather_forecast/assets/images/hsy.png
+    - packages/flutter_weather_forecast/assets/images/cb.png
+    - packages/flutter_weather_forecast/assets/images/a.png
+
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
