@@ -1,4 +1,4 @@
-const Map<String, String> tr_TR = {
+const Map<String, String> weatherStatusDict = {
   'a': 'Açık',
   'sck': 'Sıcak',
   'sgk': 'Soğuk',
