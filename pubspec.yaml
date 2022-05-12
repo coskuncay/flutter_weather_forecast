@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
@@ -23,10 +24,8 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  assets:
-    - packages/flutter_weather_forecast/assets/
-    - packages/flutter_weather_forecast/assets/images
-    - packages/flutter_weather_forecast/assets/svg
+  assets: 
+    - packages/flutter_weather_forecast/assets/images/y.png 
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
