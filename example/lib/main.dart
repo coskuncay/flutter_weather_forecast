@@ -12,12 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Weather Forecast by @coskuncay'),
     );
   }
 }
@@ -38,7 +37,28 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const WeatherForecast(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            WeatherForecast(),
+            WeatherForecast(
+              stationNo: '93201',
+            ),
+            WeatherForecast(
+              stationNo: '93401',
+            ),
+            WeatherForecast(
+              stationNo: '93601',
+            ),
+            WeatherForecast(
+              stationNo: '90101',
+            ),
+            WeatherForecast(
+              stationNo: '94301',
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

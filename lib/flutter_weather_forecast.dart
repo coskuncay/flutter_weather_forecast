@@ -183,20 +183,37 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     // Figma Flutter Generator GneliWidget - TEXT
-                                    Text(
-                                      weatherStatusDict[weatherModel
-                                          .weatherCode!
-                                          .toLowerCase()]!,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        color: Color.fromRGBO(45, 49, 49, 1),
-                                        fontFamily: 'Montserrat',
-                                        fontSize: 14,
-                                        letterSpacing:
-                                            0 /*percentages not used in flutter. defaulting to zero*/,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
+                                    weatherStatusDict[weatherModel.weatherCode!
+                                                .toLowerCase()] ==
+                                            null
+                                        ? Text(
+                                            weatherStatusDict['ab']!,
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              color:
+                                                  Color.fromRGBO(45, 49, 49, 1),
+                                              fontFamily: 'Montserrat',
+                                              fontSize: 14,
+                                              letterSpacing:
+                                                  0 /*percentages not used in flutter. defaulting to zero*/,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          )
+                                        : Text(
+                                            weatherStatusDict[weatherModel
+                                                .weatherCode!
+                                                .toLowerCase()]!,
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              color:
+                                                  Color.fromRGBO(45, 49, 49, 1),
+                                              fontFamily: 'Montserrat',
+                                              fontSize: 14,
+                                              letterSpacing:
+                                                  0 /*percentages not used in flutter. defaulting to zero*/,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
                                     Text(
                                       weatherModel.currentTemp! + '°C',
                                       textAlign: TextAlign.left,

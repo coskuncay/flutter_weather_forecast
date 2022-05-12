@@ -25,5 +25,6 @@ const Map<String, String> weatherStatusDict = {
   'kf': 'Toz veya Kum Fırtınası',
   'gkr': 'Güneyli Kuvvetli Rüzgar',
   'kkr': 'Kuzeyli Kuvvetli Rüzgar',
-  'kgy': 'Kuvvetli Gökgürültülü Sağanak Yağışlı'
+  'kgy': 'Kuvvetli Gökgürültülü Sağanak Yağışlı',
+  'hhy': 'Yağış'
 };

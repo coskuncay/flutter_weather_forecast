@@ -52,6 +52,7 @@ flutter:
     - packages/flutter_weather_forecast/assets/images/hsy.png
     - packages/flutter_weather_forecast/assets/images/cb.png
     - packages/flutter_weather_forecast/assets/images/a.png
+    - packages/flutter_weather_forecast/assets/images/hhy.png
 
   #
   # For details regarding assets in packages, see
