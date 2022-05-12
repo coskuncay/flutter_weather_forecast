@@ -62,19 +62,19 @@ class WeatherForecast extends StatefulWidget {
   /// [Color] of selected dot. Default is Color(0XFFACAEBA)
   final Color keyColor;
 
-  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  /// [Color] of selected dot. Default is  [Colors.black]
   final Color valueColor;
 
-  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  /// [Color] of selected dot. Default is [Colors.black]
   final Color weatherColor;
 
   /// [Color] of selected dot. Default is Color(0XFFACAEBA)
   final Color timeColor;
 
-  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  /// [Color] of selected dot. Default is [Colors.white]
   final Color backgroundColor;
 
-  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  /// [Color] of selected dot. Default is  [Colors.black]
   final Color statusColor;
 
   /// Vertical Padding . Default 8

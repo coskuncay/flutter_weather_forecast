@@ -93,7 +93,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
 | Name | Type | Default | 
 | --- | --- | --- |
-| stationNo | String | 06 |
+| stationNo | String | *required* |
+| keyFontSize | double | 13 |
+| valueFontSize | double | 11 |
+| statusFontSize | double | 16 |
+| weatherFontSize | double | 26 |
+| timeFontSize | double | 13 |
+| refreshIconSize | double | 20 |
+| imageScale | double | .8 |
+| borderColor | Color | Color(0XFFACAEBA) |
+| keyColor | Color | Color(0XFFACAEBA) |
+| valueColor | Color | Colors.black |
+| weatherColor | Color | Colors.black |
+| timeColor | Color | Color(0XFFACAEBA) |
+| backgroundColor | Color | Colors.white |
+| statusColor | Color | Colors.black |
+| verticalPadding | double | 8 |
+| horizontalPadding | double | 8 |
 
 ## License
 
