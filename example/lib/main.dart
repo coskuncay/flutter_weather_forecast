@@ -36,25 +36,30 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            WeatherForecast(),
-            WeatherForecast(
-              stationNo: '32',
-            ),
-            WeatherForecast(
-              stationNo: '36',
-            ),
-            WeatherForecast(
-              stationNo: '76',
-            ),
-            WeatherForecast(
-              stationNo: '11',
-            ),
-            WeatherForecast(
-              stationNo: '43',
-            ),
-          ],
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          child: Column(
+            children: const [
+              WeatherForecast(
+                stationNo: '06',
+              ),
+              WeatherForecast(
+                stationNo: '32',
+              ),
+              WeatherForecast(
+                stationNo: '36',
+              ),
+              WeatherForecast(
+                stationNo: '76',
+              ),
+              WeatherForecast(
+                stationNo: '11',
+              ),
+              WeatherForecast(
+                stationNo: '43',
+              ),
+            ],
+          ),
         ),
       ),
     );

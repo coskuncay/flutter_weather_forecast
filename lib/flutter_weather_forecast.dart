@@ -13,11 +13,75 @@ import 'models/weather_model.dart';
 class WeatherForecast extends StatefulWidget {
   const WeatherForecast({
     Key? key,
-    this.stationNo = "06",
+    required this.stationNo,
+    this.keyFontSize = 13.0,
+    this.valueFontSize = 11.0,
+    this.statusFontSize = 13.0,
+    this.weatherFontSize = 26.0,
+    this.timeFontSize = 13.0,
+    this.refreshIconSize = 20.0,
+    this.imageScale = .8,
+    this.borderColor = const Color(0XFFACAEBA),
+    this.keyColor = const Color(0XFFACAEBA),
+    this.valueColor = Colors.black,
+    this.statusColor = Colors.black,
+    this.weatherColor = Colors.black,
+    this.timeColor = const Color(0XFFACAEBA),
+    this.backgroundColor = Colors.white,
+    this.verticalPadding = 8.0,
+    this.horizontalPadding = 8.0,
   }) : super(key: key);
 
-  /// Height of container.Default is 200
+  /// City code. Default is 06
   final String stationNo;
+
+  /// Font size of Min,Max.. keys. Default is 13
+  final double keyFontSize;
+
+  /// Font size of temp,humidity .. values. Default is 11
+  final double valueFontSize;
+
+  /// Font size of status. Default is 16
+  final double statusFontSize;
+
+  /// Font size of status.Default is 26
+  final double weatherFontSize;
+
+  /// Font size of time.Default is 13
+  final double timeFontSize;
+
+  /// Size of Refresh Icon.Default is 20
+  final double refreshIconSize;
+
+  /// Scale of Image. Default .8
+  final double imageScale;
+
+  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  final Color borderColor;
+
+  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  final Color keyColor;
+
+  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  final Color valueColor;
+
+  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  final Color weatherColor;
+
+  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  final Color timeColor;
+
+  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  final Color backgroundColor;
+
+  /// [Color] of selected dot. Default is Color(0XFFACAEBA)
+  final Color statusColor;
+
+  /// Vertical Padding . Default 8
+  final double verticalPadding;
+
+  /// Horizontal Padding . Default 8
+  final double horizontalPadding;
 
   @override
   State<WeatherForecast> createState() => _WeatherForecastState();
@@ -104,12 +168,11 @@ class _WeatherForecastState extends State<WeatherForecast> {
 
   @override
   Widget build(BuildContext context) {
-    return buildWeatherWidget(context);
-  }
-
-  Widget buildWeatherWidget(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(
+        vertical: widget.verticalPadding,
+        horizontal: widget.horizontalPadding,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -117,11 +180,9 @@ class _WeatherForecastState extends State<WeatherForecast> {
             height: MediaQuery.of(context).size.height * .15,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: const Color.fromRGBO(255, 255, 255, 1),
+              color: widget.backgroundColor,
               border: Border.all(
-                color: hasError
-                    ? Colors.red
-                    : const Color.fromARGB(255, 216, 215, 216),
+                color: hasError ? Colors.red : widget.borderColor,
                 width: 1,
               ),
             ),
@@ -152,10 +213,11 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                       },
                                     );
                                   },
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.refresh,
-                                    size: 30,
-                                    color: Color.fromARGB(255, 177, 177, 177),
+                                    size: widget.refreshIconSize,
+                                    color: const Color.fromARGB(
+                                        255, 177, 177, 177),
                                   ),
                                 ),
                         ],
@@ -199,21 +261,20 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                                 },
                                               );
                                             },
-                                            child: const Icon(
+                                            child: Icon(
                                               Icons.refresh,
-                                              size: 20,
-                                              color: Color.fromARGB(
+                                              size: widget.refreshIconSize,
+                                              color: const Color.fromARGB(
                                                   255, 177, 177, 177),
                                             ),
                                           ),
                                     Text(
                                       requestTime,
                                       textAlign: TextAlign.right,
-                                      style: const TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 177, 177, 177),
+                                      style: TextStyle(
+                                        color: widget.timeColor,
                                         fontFamily: 'Montserrat',
-                                        fontSize: 11,
+                                        fontSize: widget.timeFontSize,
                                         fontWeight: FontWeight.normal,
                                         fontStyle: FontStyle.italic,
                                       ),
@@ -228,7 +289,7 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                               .toLowerCase() +
                                           '.png',
                                       package: 'flutter_weather_forecast',
-                                      scale: .8,
+                                      scale: widget.imageScale,
                                     ),
                                     const SizedBox(
                                       width: 10,
@@ -247,44 +308,49 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                             ? Text(
                                                 weatherStatusDict['ab']!,
                                                 textAlign: TextAlign.left,
-                                                style: const TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      45, 49, 49, 1),
+                                                style: TextStyle(
+                                                  color: widget.statusColor,
                                                   fontFamily: 'Montserrat',
-                                                  fontSize: 14,
-                                                  letterSpacing:
-                                                      0 /*percentages not used in flutter. defaulting to zero*/,
+                                                  fontSize:
+                                                      widget.statusFontSize,
                                                   fontWeight: FontWeight.normal,
                                                 ),
                                               )
-                                            : Text(
-                                                weatherStatusDict[weatherModel
-                                                    .weatherCode!
-                                                    .toLowerCase()]!,
-                                                textAlign: TextAlign.left,
-                                                style: const TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      45, 49, 49, 1),
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 14,
-                                                  letterSpacing:
-                                                      0 /*percentages not used in flutter. defaulting to zero*/,
-                                                  fontWeight: FontWeight.normal,
+                                            : SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    .2,
+                                                child: Text(
+                                                  weatherStatusDict[weatherModel
+                                                      .weatherCode!
+                                                      .toLowerCase()]!,
+                                                  textAlign: TextAlign.left,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    color: widget.statusColor,
+                                                    fontFamily: 'Montserrat',
+                                                    fontSize:
+                                                        widget.statusFontSize,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
                                                 ),
                                               ),
                                         Text(
                                           weatherModel.currentTemp! + '°C',
                                           textAlign: TextAlign.left,
-                                          style: const TextStyle(
-                                            fontSize: 36,
+                                          style: TextStyle(
+                                            fontSize: widget.weatherFontSize,
                                             fontWeight: FontWeight.normal,
-                                            height: 1,
+                                            color: widget.weatherColor,
                                           ),
                                         ),
                                       ],
                                     ),
                                     const SizedBox(
-                                      width: 25,
+                                      width: 10,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -297,23 +363,22 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                         children: [
                                           Row(
                                             children: [
-                                              const Text(
+                                              Text(
                                                 'Min:',
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      172, 174, 186, 1),
-                                                  fontSize: 13,
+                                                  color: widget.keyColor,
+                                                  fontSize: widget.keyFontSize,
                                                   fontStyle: FontStyle.italic,
                                                 ),
                                               ),
                                               Text(
                                                 weatherModel.minTemp! + ' °C',
-                                                style: const TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      45, 49, 49, 1),
+                                                style: TextStyle(
+                                                  color: widget.valueColor,
                                                   fontFamily: 'Montserrat',
-                                                  fontSize: 12,
+                                                  fontSize:
+                                                      widget.valueFontSize,
                                                   fontStyle: FontStyle.italic,
                                                 ),
                                               ),
@@ -324,22 +389,20 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                           ),
                                           Row(
                                             children: [
-                                              const Text(
+                                              Text(
                                                 'Max:',
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      172, 174, 186, 1),
+                                                  color: widget.keyColor,
                                                   fontFamily: 'Montserrat',
-                                                  fontSize: 13,
+                                                  fontSize: widget.keyFontSize,
                                                   fontStyle: FontStyle.italic,
                                                 ),
                                               ),
                                               Text(
                                                 weatherModel.maxTemp! + ' °C',
-                                                style: const TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      45, 49, 49, 1),
+                                                style: TextStyle(
+                                                  color: widget.valueColor,
                                                   fontFamily: 'Montserrat',
                                                   fontSize: 12,
                                                   fontStyle: FontStyle.italic,
@@ -361,23 +424,21 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                       children: [
                                         Row(
                                           children: [
-                                            const Text(
+                                            Text(
                                               'Rüzgar:',
                                               textAlign: TextAlign.right,
                                               style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    172, 174, 186, 1),
-                                                fontSize: 13,
+                                                color: widget.keyColor,
+                                                fontSize: widget.keyFontSize,
                                                 fontStyle: FontStyle.italic,
                                               ),
                                             ),
                                             Text(
                                               weatherModel.windSpeed! + 'km/h',
-                                              style: const TextStyle(
-                                                color: Color.fromRGBO(
-                                                    45, 49, 49, 1),
+                                              style: TextStyle(
+                                                color: widget.valueColor,
                                                 fontFamily: 'Montserrat',
-                                                fontSize: 12,
+                                                fontSize: widget.valueFontSize,
                                                 fontStyle: FontStyle.italic,
                                               ),
                                             ),
@@ -388,24 +449,22 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                         ),
                                         Row(
                                           children: [
-                                            const Text(
+                                            Text(
                                               'Nem:',
                                               textAlign: TextAlign.right,
                                               style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    172, 174, 186, 1),
+                                                color: widget.keyColor,
                                                 fontFamily: 'Montserrat',
-                                                fontSize: 13,
+                                                fontSize: widget.keyFontSize,
                                                 fontStyle: FontStyle.italic,
                                               ),
                                             ),
                                             Text(
                                               weatherModel.hum! + '%',
-                                              style: const TextStyle(
-                                                color: Color.fromRGBO(
-                                                    45, 49, 49, 1),
+                                              style: TextStyle(
+                                                color: widget.valueColor,
                                                 fontFamily: 'Montserrat',
-                                                fontSize: 12,
+                                                fontSize: widget.valueFontSize,
                                                 fontStyle: FontStyle.italic,
                                               ),
                                             ),
