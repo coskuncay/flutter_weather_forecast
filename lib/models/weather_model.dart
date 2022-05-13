@@ -1,12 +1,24 @@
 import 'dart:convert';
 
 class WeatherModel {
+  /// current weather forecast
   String? weatherCode;
+
+  /// minimum temperature of today's
   String? minTemp;
+
+  /// maximum temperature of today's
   String? maxTemp;
+
+  /// wind speed of today's
   String? windSpeed;
+
+  /// humidity of today's
   String? hum;
+
+  /// current temperature of today's
   String? currentTemp;
+
   WeatherModel({
     this.weatherCode,
     this.minTemp,

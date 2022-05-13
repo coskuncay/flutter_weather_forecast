@@ -1,5 +1,5 @@
 name: flutter_weather_forecast
-description: A custom weather forecast widget for Turkey.
+description: A custom weather forecast widget for Turkey.Weather data provided by the General Directorate of Meteorology.
 version: 1.1.0
 homepage: https://github.com/coskuncay/flutter_weather_forecast
 repository: https://github.com/coskuncay/flutter_weather_forecast
