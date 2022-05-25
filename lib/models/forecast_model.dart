@@ -1,46 +1,127 @@
 import 'dart:convert';
 
 class ForecastModel {
+  /// minimum temperature of today + 1 day
   int enDusukGun1;
+
+  /// minimum temperature of today + 2 days
   int enDusukGun2;
+
+  /// minimum temperature of today + 3 days
   int enDusukGun3;
+
+  /// minimum temperature of today + 4 days
   int enDusukGun4;
+
+  /// minimum temperature of today + 5 days
   int enDusukGun5;
+
+  /// minimum humidity of today + 1 day
   int enDusukNemGun1;
+
+  /// minimum humidity of today + 2 days
   int enDusukNemGun2;
+
+  /// minimum humidity of today + 3 days
   int enDusukNemGun3;
+
+  /// minimum humidity of today + 4 days
   int enDusukNemGun4;
+
+  /// minimum humidity of today + 5 days
   int enDusukNemGun5;
+
+  /// maximum temperature of today + 1 day
   int enYuksekGun1;
+
+  /// maximum temperature of today + 2 days
   int enYuksekGun2;
+
+  /// maximum temperature of today + 3 days
   int enYuksekGun3;
+
+  /// maximum temperature of today + 4 days
   int enYuksekGun4;
+
+  /// maximum temperature of today + 5 days
   int enYuksekGun5;
+
+  /// maximum humidity of today + 1 day
   int enYuksekNemGun1;
+
+  /// maximum humidity of today + 2 days
   int enYuksekNemGun2;
+
+  /// maximum humidity of today + 3 days
   int enYuksekNemGun3;
+
+  /// maximum humidity of today + 4 days
   int enYuksekNemGun4;
+
+  /// maximum humidity of today + 5 days
   int enYuksekNemGun5;
+
+  /// weather code of today + 1 day
   String hadiseGun1;
+
+  /// weather code of today + 2 days
   String hadiseGun2;
+
+  /// weather code of today + 3 days
   String hadiseGun3;
+
+  /// weather code of today + 4 days
   String hadiseGun4;
+
+  /// weather code of today + 5 days
   String hadiseGun5;
+
+  /// station code
   int istNo;
+
+  /// wind speed of today + 1 day
   int ruzgarHizGun1;
+
+  /// wind speed of today + 2 days
   int ruzgarHizGun2;
+
+  /// wind speed of today + 3 days
   int ruzgarHizGun3;
+
+  /// wind speed of today + 4 days
   int ruzgarHizGun4;
+
+  /// wind speed of today + 5 days
   int ruzgarHizGun5;
+
+  /// wind direction of today + 1 day
   int ruzgarYonGun1;
+
+  /// wind direction of today + 2 days
   int ruzgarYonGun2;
+
+  /// wind direction of today + 3 days
   int ruzgarYonGun3;
+
+  /// wind direction of today + 4 days
   int ruzgarYonGun4;
+
+  /// wind direction of today + 5 days
   int ruzgarYonGun5;
+
+  /// tomorrow date
   String tarihGun1;
+
+  /// today + 2 days
   String tarihGun2;
+
+  /// today + 3 days
   String tarihGun3;
+
+  /// today + 4 days
   String tarihGun4;
+
+  /// today + 5 days
   String tarihGun5;
   ForecastModel({
     required this.enDusukGun1,

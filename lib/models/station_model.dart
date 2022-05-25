@@ -2,17 +2,35 @@ import 'dart:convert';
 
 class StationModel {
   dynamic alternatifHadiseIstNo;
+
+  /// longitude of station
   double boylam;
+
+  /// latitude of station
   double enlem;
+
+  /// station code
   int gunlukTahminIstNo;
+
+  /// city
   String il;
+
+  /// city code
   int ilPlaka;
+
+  /// county
   String ilce;
+
+  ///center county code
   int merkezId;
   int oncelik;
   int saatlikTahminIstNo;
   int sondurumIstNo;
+
+  ///altitude
   int yukseklik;
+
+  /// description
   String aciklama;
   int modelId;
   int gps;
