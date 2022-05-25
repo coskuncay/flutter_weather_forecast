@@ -19,7 +19,7 @@
 
 ```
 dependencies:
-  flutter_custom_carousel_slider: ^1.0.0
+  flutter_weather_forecast: ^1.1.2
 ```
 
 ## Using
