@@ -101,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
 | timeFontSize | double | 13 |
 | refreshIconSize | double | 20 |
 | imageScale | double | .8 |
+| containerHeight | double | ScreenHeight * .15 |
 | borderColor | Color | Color(0XFFACAEBA) |
 | keyColor | Color | Color(0XFFACAEBA) |
 | valueColor | Color | Colors.black |

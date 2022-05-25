@@ -30,6 +30,7 @@ class WeatherForecast extends StatefulWidget {
     this.backgroundColor = Colors.white,
     this.verticalPadding = 8.0,
     this.horizontalPadding = 8.0,
+    this.containerHeight,
   }) : super(key: key);
 
   /// City code. Default is 06
@@ -55,6 +56,9 @@ class WeatherForecast extends StatefulWidget {
 
   /// Scale of Image. Default .8
   final double imageScale;
+
+  /// Height of container. Default ScreenHeight * .15
+  final double? containerHeight;
 
   /// [Color] of selected dot. Default is Color(0XFFACAEBA)
   final Color borderColor;
@@ -177,7 +181,8 @@ class _WeatherForecastState extends State<WeatherForecast> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * .15,
+            height: widget.containerHeight ??
+                MediaQuery.of(context).size.height * .15,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: widget.backgroundColor,

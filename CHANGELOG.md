@@ -9,3 +9,8 @@
 ## [1.1.1] - 2022-05-13
 
 * Documentation edited.
+
+
+## [1.1.2] - 2022-05-25
+
+* Container height property added.
