@@ -10,13 +10,14 @@ import 'package:flutter/material.dart';
 
 import 'models/weather_model.dart';
 
+// ignore: must_be_immutable
 class WeatherForecast extends StatefulWidget {
-  const WeatherForecast({
+  WeatherForecast({
     Key? key,
     required this.stationNo,
     this.keyFontSize = 13.0,
-    this.valueFontSize = 11.0,
-    this.statusFontSize = 13.0,
+    this.valueFontSize = 13.0,
+    this.statusFontSize = 14.0,
     this.weatherFontSize = 26.0,
     this.timeFontSize = 13.0,
     this.refreshIconSize = 20.0,
@@ -26,11 +27,15 @@ class WeatherForecast extends StatefulWidget {
     this.valueColor = Colors.black,
     this.statusColor = Colors.black,
     this.weatherColor = Colors.black,
+    this.refreshColor = Colors.black,
     this.timeColor = const Color(0XFFACAEBA),
     this.backgroundColor = Colors.white,
     this.verticalPadding = 8.0,
+    this.colorFilter,
     this.horizontalPadding = 8.0,
     this.containerHeight,
+    this.image,
+    this.boxFit = BoxFit.cover,
   }) : super(key: key);
 
   /// City code. Default is 06
@@ -72,6 +77,9 @@ class WeatherForecast extends StatefulWidget {
   /// [Color] of selected dot. Default is [Colors.black]
   final Color weatherColor;
 
+  /// [Color] of selected dot. Default is [Colors.black]
+  final Color refreshColor;
+
   /// [Color] of selected dot. Default is Color(0XFFACAEBA)
   final Color timeColor;
 
@@ -86,6 +94,15 @@ class WeatherForecast extends StatefulWidget {
 
   /// Horizontal Padding . Default 8
   final double horizontalPadding;
+
+  // ignore: prefer_typing_uninitialized_variables
+  var image;
+
+  /// [BoxFit] of image. Default is  [BoxFit.fill]
+  final BoxFit boxFit;
+
+  /// [ColorFilter] of image. Default is null
+  ColorFilter? colorFilter;
 
   @override
   State<WeatherForecast> createState() => _WeatherForecastState();
@@ -129,15 +146,15 @@ class _WeatherForecastState extends State<WeatherForecast> {
   Future<void> getCurrentForecast() async {
     DateTime now = DateTime.now();
     setState(() {
-      requestTime = now.day.toString() +
+      requestTime = now.day.toString().padLeft(2, '0') +
           "." +
-          now.month.toString() +
+          now.month.toString().padLeft(2, '0') +
           "." +
           now.year.toString() +
           "-" +
-          now.hour.toString() +
+          now.hour.toString().padLeft(2, '0') +
           ":" +
-          now.minute.toString();
+          now.minute.toString().padLeft(2, '0');
     });
     final queryParameters = {
       'merkezid': '9' + widget.stationNo + '01',
@@ -162,11 +179,13 @@ class _WeatherForecastState extends State<WeatherForecast> {
         },
       );
     } catch (e) {
-      setState(() {
-        hasError = true;
-        isLoading = false;
-        errorMessage = "Hava durumu bilgileri alınamadı! Tekrar deneyiniz.";
-      });
+      setState(
+        () {
+          hasError = true;
+          isLoading = false;
+          errorMessage = "Hava durumu bilgileri alınamadı! Tekrar deneyiniz.";
+        },
+      );
     }
   }
 
@@ -183,14 +202,23 @@ class _WeatherForecastState extends State<WeatherForecast> {
           Container(
             height: widget.containerHeight ??
                 MediaQuery.of(context).size.height * .15,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: widget.backgroundColor,
-              border: Border.all(
-                color: hasError ? Colors.red : widget.borderColor,
-                width: 1,
-              ),
-            ),
+            decoration: widget.image != null
+                ? BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    image: DecorationImage(
+                      image: widget.image,
+                      colorFilter: widget.colorFilter,
+                      fit: widget.boxFit,
+                    ),
+                  )
+                : BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: widget.backgroundColor,
+                    border: Border.all(
+                      color: hasError ? Colors.red : widget.borderColor,
+                      width: 1,
+                    ),
+                  ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: hasError
@@ -221,259 +249,238 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                   child: Icon(
                                     Icons.refresh,
                                     size: widget.refreshIconSize,
-                                    color: const Color.fromARGB(
-                                        255, 177, 177, 177),
+                                    color: widget.refreshColor,
                                   ),
                                 ),
                         ],
                       ),
                     )
-                  : weatherModel.currentTemp == null
+                  : (weatherModel.currentTemp == null ||
+                          weatherModel.minTemp == null)
                       ? const Center(
                           child: CircularProgressIndicator(
                             strokeWidth: 1,
                           ),
                         )
-                      : weatherModel.minTemp == null
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                                strokeWidth: 1,
-                              ),
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                isLoading
+                                    ? const SizedBox(
+                                        width: 5,
+                                        height: 10,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 1,
+                                          color: Color.fromARGB(
+                                              255, 177, 177, 177),
+                                        ),
+                                      )
+                                    : InkWell(
+                                        onTap: () {
+                                          setState(
+                                            () {
+                                              isLoading = true;
+                                              getCurrentForecast();
+                                            },
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.refresh,
+                                          size: widget.refreshIconSize,
+                                          color: widget.refreshColor,
+                                        ),
+                                      ),
+                                Text(
+                                  requestTime,
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: widget.timeColor,
+                                    fontFamily: 'Montserrat',
+                                    fontSize: widget.timeFontSize,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/' +
+                                      weatherModel.weatherCode!.toLowerCase() +
+                                      '.png',
+                                  package: 'flutter_weather_forecast',
+                                  scale: widget.imageScale,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    isLoading
-                                        ? const SizedBox(
-                                            width: 10,
-                                            height: 10,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 1,
-                                              color: Color.fromARGB(
-                                                  255, 177, 177, 177),
+                                    // Figma Flutter Generator GneliWidget - TEXT
+                                    weatherStatusDict[weatherModel.weatherCode!
+                                                .toLowerCase()] ==
+                                            null
+                                        ? Text(
+                                            weatherStatusDict['ab']!,
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              color: widget.statusColor,
+                                              fontFamily: 'Montserrat',
+                                              fontSize: widget.statusFontSize,
+                                              fontWeight: FontWeight.normal,
                                             ),
                                           )
-                                        : InkWell(
-                                            onTap: () {
-                                              setState(
-                                                () {
-                                                  isLoading = true;
-                                                  getCurrentForecast();
-                                                },
-                                              );
-                                            },
-                                            child: Icon(
-                                              Icons.refresh,
-                                              size: widget.refreshIconSize,
-                                              color: const Color.fromARGB(
-                                                  255, 177, 177, 177),
+                                        : SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .2,
+                                            child: Text(
+                                              weatherStatusDict[weatherModel
+                                                  .weatherCode!
+                                                  .toLowerCase()]!,
+                                              textAlign: TextAlign.left,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                color: widget.statusColor,
+                                                fontFamily: 'Montserrat',
+                                                fontSize: widget.statusFontSize,
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                             ),
                                           ),
                                     Text(
-                                      requestTime,
-                                      textAlign: TextAlign.right,
+                                      weatherModel.currentTemp! + '°C',
+                                      textAlign: TextAlign.left,
                                       style: TextStyle(
-                                        color: widget.timeColor,
-                                        fontFamily: 'Montserrat',
-                                        fontSize: widget.timeFontSize,
+                                        fontSize: widget.weatherFontSize,
                                         fontWeight: FontWeight.normal,
-                                        fontStyle: FontStyle.italic,
+                                        color: widget.weatherColor,
                                       ),
                                     ),
                                   ],
                                 ),
-                                Row(
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Min: ',
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              color: widget.keyColor,
+                                              fontSize: widget.keyFontSize,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                          ),
+                                          Text(
+                                            weatherModel.minTemp! + ' °C',
+                                            style: TextStyle(
+                                              color: widget.valueColor,
+                                              fontFamily: 'Montserrat',
+                                              fontSize: widget.valueFontSize,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Max: ',
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              color: widget.keyColor,
+                                              fontFamily: 'Montserrat',
+                                              fontSize: widget.keyFontSize,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                          ),
+                                          Text(
+                                            weatherModel.maxTemp! + ' °C',
+                                            style: TextStyle(
+                                              color: widget.valueColor,
+                                              fontFamily: 'Montserrat',
+                                              fontSize: 12,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset(
-                                      'assets/images/' +
-                                          weatherModel.weatherCode!
-                                              .toLowerCase() +
-                                          '.png',
-                                      package: 'flutter_weather_forecast',
-                                      scale: widget.imageScale,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    Row(
                                       children: [
-                                        // Figma Flutter Generator GneliWidget - TEXT
-                                        weatherStatusDict[weatherModel
-                                                    .weatherCode!
-                                                    .toLowerCase()] ==
-                                                null
-                                            ? Text(
-                                                weatherStatusDict['ab']!,
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                  color: widget.statusColor,
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize:
-                                                      widget.statusFontSize,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                              )
-                                            : SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    .2,
-                                                child: Text(
-                                                  weatherStatusDict[weatherModel
-                                                      .weatherCode!
-                                                      .toLowerCase()]!,
-                                                  textAlign: TextAlign.left,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    color: widget.statusColor,
-                                                    fontFamily: 'Montserrat',
-                                                    fontSize:
-                                                        widget.statusFontSize,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                                ),
-                                              ),
                                         Text(
-                                          weatherModel.currentTemp! + '°C',
-                                          textAlign: TextAlign.left,
+                                          'Rüzgar: ',
+                                          textAlign: TextAlign.right,
                                           style: TextStyle(
-                                            fontSize: widget.weatherFontSize,
-                                            fontWeight: FontWeight.normal,
-                                            color: widget.weatherColor,
+                                            color: widget.keyColor,
+                                            fontSize: widget.keyFontSize,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+                                        Text(
+                                          weatherModel.windSpeed! + 'km/h',
+                                          style: TextStyle(
+                                            color: widget.valueColor,
+                                            fontFamily: 'Montserrat',
+                                            fontSize: widget.valueFontSize,
+                                            fontStyle: FontStyle.italic,
                                           ),
                                         ),
                                       ],
                                     ),
                                     const SizedBox(
-                                      width: 10,
+                                      height: 10,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'Min:',
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  color: widget.keyColor,
-                                                  fontSize: widget.keyFontSize,
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              ),
-                                              Text(
-                                                weatherModel.minTemp! + ' °C',
-                                                style: TextStyle(
-                                                  color: widget.valueColor,
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize:
-                                                      widget.valueFontSize,
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'Max:',
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  color: widget.keyColor,
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: widget.keyFontSize,
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              ),
-                                              Text(
-                                                weatherModel.maxTemp! + ' °C',
-                                                style: TextStyle(
-                                                  color: widget.valueColor,
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 12,
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                    Row(
                                       children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Rüzgar:',
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                color: widget.keyColor,
-                                                fontSize: widget.keyFontSize,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                            ),
-                                            Text(
-                                              weatherModel.windSpeed! + 'km/h',
-                                              style: TextStyle(
-                                                color: widget.valueColor,
-                                                fontFamily: 'Montserrat',
-                                                fontSize: widget.valueFontSize,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                            ),
-                                          ],
+                                        Text(
+                                          'Nem: ',
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                            color: widget.keyColor,
+                                            fontFamily: 'Montserrat',
+                                            fontSize: widget.keyFontSize,
+                                            fontStyle: FontStyle.italic,
+                                          ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Nem:',
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                color: widget.keyColor,
-                                                fontFamily: 'Montserrat',
-                                                fontSize: widget.keyFontSize,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                            ),
-                                            Text(
-                                              weatherModel.hum! + '%',
-                                              style: TextStyle(
-                                                color: widget.valueColor,
-                                                fontFamily: 'Montserrat',
-                                                fontSize: widget.valueFontSize,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                            ),
-                                          ],
+                                        Text(
+                                          weatherModel.hum! + '%',
+                                          style: TextStyle(
+                                            color: widget.valueColor,
+                                            fontFamily: 'Montserrat',
+                                            fontSize: widget.valueFontSize,
+                                            fontStyle: FontStyle.italic,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -481,6 +488,8 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                 ),
                               ],
                             ),
+                          ],
+                        ),
             ),
           ),
         ],

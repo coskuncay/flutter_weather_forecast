@@ -10,7 +10,10 @@
 
 * Documentation edited.
 
-
 ## [1.1.2] - 2022-05-25
 
 * Container height property added.
+
+## [1.2.0] - 2022-09-23
+
+* Background image , boxFit , colorFilter added. DateTime padLeft added.

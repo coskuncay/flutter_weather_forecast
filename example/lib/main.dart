@@ -37,17 +37,38 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: Column(
-            children: const [
+            children: [
               WeatherForecast(
                 stationNo: '06',
+                image: const ExactAssetImage(
+                  'assets/images/ankara.jpg',
+                ),
+                colorFilter:
+                    const ColorFilter.mode(Colors.grey, BlendMode.modulate),
+                keyColor: Colors.white,
+                timeColor: Colors.white,
+                valueColor: Colors.white,
+                statusColor: Colors.white,
+                weatherColor: Colors.white,
+                refreshColor: Colors.white,
               ),
               WeatherForecast(
                 stationNo: '32',
               ),
               WeatherForecast(
-                stationNo: '36',
+                stationNo: '34',
+                image: const ExactAssetImage(
+                  'assets/images/weather_background.png',
+                ),
+                boxFit: BoxFit.cover,
+                keyColor: Colors.white,
+                timeColor: Colors.white,
+                valueColor: Colors.white,
+                statusColor: Colors.white,
+                weatherColor: Colors.white,
+                refreshColor: Colors.white,
               ),
               WeatherForecast(
                 stationNo: '76',
